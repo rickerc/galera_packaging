@@ -44,7 +44,7 @@ install: build
 	mkdir -p $(CURDIR)/debian/galera/etc/init.d
 	mkdir -p $(CURDIR)/debian/galera/etc/default
 	mkdir -p $(CURDIR)/debian/galera/usr/bin
-	mkdir -p $(CURDIR)/debian/galera/usr/lib/galera
+	mkdir -p $(CURDIR)/debian/galera/usr/lib
 	cp $(CURDIR)/garb/files/garb.sh $(CURDIR)/debian/galera/etc/init.d/garb
 	#touch $CURDIR)/debian/galera/etc/ld.so.conf.d/galera.conf
 	cp $(CURDIR)/garb/files/garb.cnf $(CURDIR)/debian/galera/etc/default/garb
