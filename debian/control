@@ -1,0 +1,20 @@
+Source: galera
+Maintainer: Chris Ricker <chricker@cisco.com>
+Section: misc
+Priority: optional
+Build-Depends: scons,
+ libboost-dev,
+ libssl-dev,
+ check,
+ libboost-program-options-dev,
+ debhelper (>= 8),
+Standards-Version: 3.9.3
+
+Package: galera
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Framework implementing Galera Replication for clustered MySQL
+ A replication framework implementing the wsrep interface for replicating
+ MySQL transactions.
+
+

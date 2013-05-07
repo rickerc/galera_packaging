@@ -1,0 +1,78 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+SCONS=scons
+
+configure: configure-stamp 
+configure-stamp: 
+	dh_testdir 
+	touch configure-stamp 
+
+build: build-stamp 
+
+build-stamp: configure-stamp
+	dh_testdir 
+	$(SCONS) 
+	touch $@ 
+
+clean: 
+	dh_testdir 
+	dh_testroot 
+	$(SCONS) -c
+	rm -f build-stamp configure-stamp
+	rm -rf config.log .sconf_temp .sconsign.dblite
+	rm -f gcache.page.000000 rb_test
+	rm -f check_gcomm.log galera_check.log gcache_tests.log
+	rm -f gcs_tests.log gu_tests++.log gu_tests.log 
+	dh_clean 
+
+install: build 
+	dh_testdir 
+	dh_testroot 
+	dh_prep
+	dh_installdirs 
+	# hand install as a work around
+	mkdir -p $(CURDIR)/debian/galera
+	mkdir -p $(CURDIR)/debian/galera/etc/init.d
+	mkdir -p $(CURDIR)/debian/galera/etc/ld.so.conf.d
+	mkdir -p $(CURDIR)/debian/galera/etc/default
+	mkdir -p $(CURDIR)/debian/galera/usr/bin
+	mkdir -p $(CURDIR)/debian/galera/usr/lib/galera
+	cp $(CURDIR)/garb/files/garb.sh $(CURDIR)/debian/galera/etc/init.d/garb
+	#touch $CURDIR)/debian/galera/etc/ld.so.conf.d/galera.conf
+	cp $(CURDIR)/garb/files/garb.cnf $(CURDIR)/debian/galera/etc/default/garb
+	cp $(CURDIR)/libgalera_smm.so $(CURDIR)/debian/galera/usr/lib/galera/libgalera_smm.so
+	cp $(CURDIR)/garb/garbd $(CURDIR)/debian/galera/usr/bin/garbd
+
+binary-indep: install 
+
+binary-arch: install 
+	dh_testdir 
+	dh_testroot 
+	dh_installchangelogs 
+	dh_installdocs 
+	dh_installexamples 
+	dh_install 
+	dh_installinit 
+	dh_installman 
+	dh_link 
+	dh_strip 
+	dh_compress 
+	dh_fixperms 
+	dh_makeshlibs 
+	dh_installdeb 
+	dh_shlibdeps 
+	dh_gencontrol 
+	dh_md5sums 
+	dh_builddeb 
+
+binary: binary-indep binary-arch 
+.PHONY: build clean binary-indep binary-arch binary install configure 
