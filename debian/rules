@@ -42,14 +42,13 @@ install: build
 	# hand install as a work around
 	mkdir -p $(CURDIR)/debian/galera
 	mkdir -p $(CURDIR)/debian/galera/etc/init.d
-	mkdir -p $(CURDIR)/debian/galera/etc/ld.so.conf.d
 	mkdir -p $(CURDIR)/debian/galera/etc/default
 	mkdir -p $(CURDIR)/debian/galera/usr/bin
 	mkdir -p $(CURDIR)/debian/galera/usr/lib/galera
 	cp $(CURDIR)/garb/files/garb.sh $(CURDIR)/debian/galera/etc/init.d/garb
 	#touch $CURDIR)/debian/galera/etc/ld.so.conf.d/galera.conf
 	cp $(CURDIR)/garb/files/garb.cnf $(CURDIR)/debian/galera/etc/default/garb
-	cp $(CURDIR)/libgalera_smm.so $(CURDIR)/debian/galera/usr/lib/galera/libgalera_smm.so
+	cp $(CURDIR)/libgalera_smm.so $(CURDIR)/debian/galera/usr/lib/libgalera_smm.so
 	cp $(CURDIR)/garb/garbd $(CURDIR)/debian/galera/usr/bin/garbd
 
 binary-indep: install 
